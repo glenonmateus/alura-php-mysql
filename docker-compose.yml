@@ -1,0 +1,26 @@
+name: alura-php-mysql
+services:
+  web:
+    image: php:8.3.20-apache
+    volumes:
+      - type: bind
+        source: .
+        target: /var/www/html
+    ports:
+      - name: web
+        target: 80
+        published: "8080"
+        protocol: tcp
+        app_protocol: http
+        mode: host
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: alura_php_mysql
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - type: volume
+        source: mysql_data
+        target: /var/lib/mysql
+volumes:
+  mysql_data:
